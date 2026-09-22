@@ -1,36 +1,59 @@
 # ACISO Agent CRM
 
-An AI-assisted CRM prototype I built for my bachelor's thesis in Business Informatics, in cooperation with ACISO Consulting and ELEMENTS Fitness.
+An AI-assisted customer retention prototype for fitness studios, built for my bachelor's thesis in Business Informatics with ACISO Consulting and ELEMENTS Fitness.
 
-Fitness teams need to understand which members may leave and decide how to follow up. This application combines a dashboard with an agent that retrieves member data, explains churn scores and drafts retention plans for staff to review.
+The application brings member-risk analysis and retention planning into one dashboard. Staff can inspect a risk score, ask the agent for supporting information and review a proposed follow-up plan.
 
-## What I built
+## How it works
 
-The frontend uses Next.js, React and TypeScript. A Python agent built with Google ADK queries BigQuery, retrieves model explanations and searches a retention knowledge corpus. Firebase handles sign-in and stored plans. Staff can inspect a recommendation, save it and export a PDF.
+The Next.js frontend provides the dashboard and chat. A Python agent built with Google ADK queries BigQuery, retrieves model explanations and searches a retention knowledge corpus. Firebase handles sign-in and stored plans. Staff can review a recommendation, save it and export a PDF.
 
-This repository contains the application source. Research datasets, credentials and the private development history are excluded. Static dashboard examples use synthetic values.
+```mermaid
+flowchart LR
+    Staff[Studio staff] --> UI[Dashboard and chat]
+    UI --> Agent[ADK agent]
+    Agent --> Data[BigQuery and model explanations]
+    Agent --> Knowledge[Retention knowledge]
+    Agent --> Plan[Plan for staff review]
+    Plan --> Export[Save or export PDF]
+```
+
+## Repository
+
+```text
+backend/                 Python service and agent tools
+  aciso_agent/           Agent, prompts, queries and plan generation
+  tests/                 Offline backend tests
+frontend/                Next.js application
+  app/                   Pages and API routes
+  components/            Dashboard, chat and retention-plan views
+  lib/                   Data access, cloud configuration and shared types
+  tests/                 Unit tests, browser scenarios and fixtures
+docs/                    Setup, architecture and source notes
+scripts/                 Source export and its checks
+```
 
 ## Read the code
 
 | Area | Source |
 | --- | --- |
-| Agent and tool selection | [agent.py](Aciso-Agent_Final/Aciso_Agent/agent.py) |
-| Queries, explanations and retention plans | [tools.py](Aciso-Agent_Final/Aciso_Agent/tools.py) |
-| Agent prompts | [instructions.py](Aciso-Agent_Final/Aciso_Agent/instructions.py) |
-| Dashboard and chat | [Frontend components](ai-agent-fe/components/dashboard/) |
-| Streaming API proxy | [ADK route](ai-agent-fe/app/api/adk/route.ts) |
-| Saved plans and exports | [Retention plan routes](ai-agent-fe/app/api/retention-plans/) |
+| Agent behavior and tools | [Backend source map](backend/README.md) |
+| Dashboard and chat | [Frontend source map](frontend/README.md) |
+| Streamed agent responses | [API proxy](frontend/app/api/adk/route.ts) |
+| Saved plans and PDF export | [Retention-plan routes](frontend/app/api/retention-plans/) |
 
-[Project background](docs/case-study.md) · [Architecture](docs/architecture.md)
+Read the [project background](docs/case-study.md) and [architecture](docs/architecture.md).
 
 ## Run locally
 
-The application needs your own Firebase and Google Cloud configuration, a BigQuery dataset with the expected member schema, and a Vertex AI retrieval corpus. It does not include access to the original services.
+You need a Firebase project, BigQuery tables with the expected member schema and a Vertex AI retrieval corpus. Both application folders contain an `.env.example`.
 
-See [setup instructions](docs/setup.md) for the backend and [frontend configuration](ai-agent-fe/README.md).
+Follow the [setup instructions](docs/setup.md) to configure both services and run the offline checks. The backend uses port 8001 and the frontend uses port 3000 by default.
 
-## Project status
+## Source edition
 
-This is thesis prototype code. The offline tests, TypeScript check and lint pass. Next.js compiles; the full build needs Firebase Admin credentials. The cloud workflow has not been retested for this release.
+This is a maintained public edition of the thesis prototype, with later fixes and a reorganized source tree. Research datasets, credentials and private development history are excluded. Static dashboard examples use labeled synthetic data.
 
-Some authorization and saved-plan paths still use development placeholders. The project has not been validated for production use or for a measured reduction in churn. See [verification notes](docs/verification.md) for the tested scope and remaining integration work.
+Offline tests, lint and type checking cover selected components. Running the complete application requires cloud configuration; some authorization and saved-plan paths retain development placeholders. The project does not claim a production rollout or a measured reduction in churn.
+
+See the [source history](docs/source-notes.md) for release details and the [verification notes](docs/verification.md) for test results and remaining integration work.

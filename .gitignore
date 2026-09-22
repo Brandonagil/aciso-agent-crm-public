@@ -70,7 +70,7 @@ target/
 .cursorignore
 .cursorrules
 
-
+# Local agent and thesis working files
 CLAUDE.md
 .mcp.json
 claude_code_mcp.json
@@ -93,7 +93,7 @@ playwright-report/
 *.db
 *.sqlite
 
-# Large media files (optional)
+# Local media files
 *.mp4
 *.tiff
 *.avi
@@ -107,6 +107,4 @@ playwright-report/
 # Deployment
 .vercel/
 mcp-servers/genai-toolbox
-ai-agent-fe/test-results/.last-run.json
 systemarchitektur-diagramm.mermaid
-ai-agent-fe/playwright-report/data/26b504471bef87b244f5f54bba9d36e309cc5c0c.png

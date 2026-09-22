@@ -15,14 +15,14 @@ flowchart LR
 
 | Behavior | Source |
 | --- | --- |
-| Agent definition and callbacks | `Aciso-Agent_Final/Aciso_Agent/agent.py` |
-| Instructions and tool descriptions | `Aciso-Agent_Final/Aciso_Agent/instructions.py` |
-| Queries, explanations and plan generation | `Aciso-Agent_Final/Aciso_Agent/tools.py` |
-| Configuration and state | `Aciso-Agent_Final/Aciso_Agent/config.py`, `state.py` |
-| PDF rendering | `Aciso-Agent_Final/Aciso_Agent/pdf_generator.py` |
-| Streaming proxy | `ai-agent-fe/app/api/adk/route.ts` |
-| Dashboard | `ai-agent-fe/app/(auth)/dashboard/` |
-| Saved-plan endpoints | `ai-agent-fe/app/api/retention-plans/` |
+| Agent definition and callbacks | `backend/aciso_agent/agent.py` |
+| Instructions and tool descriptions | `backend/aciso_agent/instructions.py` |
+| Queries, explanations and plan generation | `backend/aciso_agent/tools.py` |
+| Configuration and state | `backend/aciso_agent/config.py`, `state.py` |
+| PDF rendering | `backend/aciso_agent/pdf_generator.py` |
+| Streaming proxy | `frontend/app/api/adk/route.ts` |
+| Dashboard | `frontend/app/(auth)/dashboard/` |
+| Saved-plan endpoints | `frontend/app/api/retention-plans/` |
 
 The agent uses Gemini through Google ADK and Vertex AI. Project IDs, credential paths and the retrieval corpus are supplied through environment variables.
 
