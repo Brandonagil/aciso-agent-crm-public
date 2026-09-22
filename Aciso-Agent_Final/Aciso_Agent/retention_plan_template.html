@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Retention Plan - Kunde {{ customer_profile.id }}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+            @bottom-center {
+                content: "Seite " counter(page) " von " counter(pages);
+                font-size: 10px;
+                color: #64748b;
+            }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .metric-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .insight-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .profile-section {
+            background: #fefefe;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .profile-label {
+            font-weight: 600;
+            color: #64748b;
+        }
+        
+        .profile-value {
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .actions-section {
+            margin: 1rem 0;
+        }
+        
+        .action-card {
+            background: #fefefe;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .action-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .action-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1e293b;
+            margin: 0;
+        }
+        
+        .priority-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .priority-high {
+            background: #1f2937;
+            color: white;
+        }
+        
+        .priority-medium {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .priority-low {
+            background: #9ca3af;
+            color: white;
+        }
+        
+        .action-description {
+            color: #4b5563;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .action-details {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+        }
+        
+        .action-detail {
+            color: #64748b;
+        }
+        
+        .action-detail strong {
+            color: #1e293b;
+        }
+        
+        .chart-section {
+            text-align: center;
+            margin: 1rem 0;
+            page-break-inside: avoid;
+        }
+        
+        .chart-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #1e40af;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0 0.8rem 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+        }
+        
+        .footer {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Retention Plan</h1>
+        <p>Kunde ID: {{ customer_profile.id }} | Erstellt am: {{ creation_date }}</p>
+    </div>
+
+    <h2>📊 Executive Summary</h2>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-value">{{ executive_summary.churn_risk }}%</div>
+            <div class="metric-label">Churn-Risiko</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">€{{ "{:,.0f}".format(executive_summary.clv_uplift) }}</div>
+            <div class="metric-label">CLV-Uplift</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">{{ executive_summary.roi_estimate }}%</div>
+            <div class="metric-label">ROI-Potenzial</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">12W</div>
+            <div class="metric-label">Zeitrahmen</div>
+        </div>
+    </div>
+
+    {% if executive_summary.top_insight %}
+    <div class="insight-box">
+        <strong>💡 Top Insight:</strong> {{ executive_summary.top_insight }}
+    </div>
+    {% endif %}
+
+    <h2>👤 Kundenprofil</h2>
+    <div class="profile-section">
+        <div class="profile-grid">
+            <div class="profile-item">
+                <span class="profile-label">Status:</span>
+                <span class="profile-value">{{ customer_profile.activity_status }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Altersgruppe:</span>
+                <span class="profile-value">{{ customer_profile.age_group }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Wert-Tier:</span>
+                <span class="profile-value">{{ customer_profile.value_tier }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Mitgliedschaftsphase:</span>
+                <span class="profile-value">{{ customer_profile.membership_stage }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Tage inaktiv:</span>
+                <span class="profile-value">{{ customer_profile.key_metrics.days_inactive }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Monatsbeitrag:</span>
+                <span class="profile-value">€{{ customer_profile.key_metrics.monthly_fee }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Besuche/Monat:</span>
+                <span class="profile-value">{{ customer_profile.key_metrics.monthly_visits }}</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Engagement-Score:</span>
+                <span class="profile-value">{{ "{:.1f}".format(customer_profile.key_metrics.engagement_score) }}</span>
+            </div>
+        </div>
+    </div>
+
+    <h2>🎯 Maßnahmen</h2>
+    <div class="actions-section">
+        {% for action in top_actions %}
+        <div class="action-card">
+            <div class="action-header">
+                <h3 class="action-title">{{ loop.index }}. {{ action.title }}</h3>
+                <span class="priority-badge priority-{{ action.priority }}">
+                    {{ action.priority }}
+                </span>
+            </div>
+            <div class="action-description">
+                {{ action.description }}
+            </div>
+            <div class="action-details">
+                <div class="action-detail">
+                    <strong>Zeitrahmen:</strong> {{ action.timeframe }}
+                </div>
+                <div class="action-detail">
+                    <strong>Erwartetes Ergebnis:</strong> {{ action.expected_result }}
+                </div>
+                {% if action.cost_estimate %}
+                <div class="action-detail">
+                    <strong>Kostenschätzung:</strong> €{{ action.cost_estimate }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if clv_chart_base64 %}
+    <h2>📈 CLV-Projektion</h2>
+    <div class="chart-section">
+        <img src="data:image/png;base64,{{ clv_chart_base64 }}" alt="CLV Projection Chart">
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        <p>Automatisch generiert am {{ creation_date }} | Aciso CRM Intelligence Assistant</p>
+        <p>Basierend auf BigQuery ML-Analysen und Echtzeit-Kundendaten</p>
+    </div>
+</body>
+</html>

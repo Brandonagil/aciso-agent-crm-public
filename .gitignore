@@ -1,0 +1,112 @@
+# OS-generated
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Env files
+.env
+.env.local
+.env.*
+!.env.example
+!.env.*.example
+*credentials*.json
+*.pem
+*.key
+firebase-key.json
+*firebase-adminsdk*.json
+
+# Google Cloud Service Account Keys
+aciso-ai-*.json
+*service-account*.json
+
+# Node / JavaScript / TypeScript (Next.js frontend)
+node_modules/
+.next/
+out/
+coverage/
+.next-env.d.ts
+*.tsbuildinfo
+.pnp/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Python (AI agent)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.pytest_cache/
+
+# Build output
+build/
+dist/
+target/
+
+# Java
+*.class
+*.jar
+*.war
+
+# Executables
+*.exe
+*.app
+
+# IDEs & editors
+.idea/
+.vscode/
+*.code-workspace
+.cursor/
+.cursorignore
+.cursorrules
+
+
+CLAUDE.md
+.mcp.json
+claude_code_mcp.json
+*claude*
+*ai-dev*
+Bachelorarbeit.md
+
+# Tests
+TEST*.xml
+test-results/
+playwright-report/
+.adk/
+*.pid
+
+# Private research data and local databases
+*.xlsx
+*.csv
+*.pkl
+*.joblib
+*.db
+*.sqlite
+
+# Large media files (optional)
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
+# Document files
+*.docx
+
+# Deployment
+.vercel/
+mcp-servers/genai-toolbox
+ai-agent-fe/test-results/.last-run.json
+systemarchitektur-diagramm.mermaid
+ai-agent-fe/playwright-report/data/26b504471bef87b244f5f54bba9d36e309cc5c0c.png

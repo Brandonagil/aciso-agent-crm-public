@@ -1,0 +1,29 @@
+
+
+
+google-adk==1.7.0
+fastapi==0.115.12
+uvicorn==0.34.3
+pydantic==2.11.5
+
+# Google Cloud
+google-cloud-bigquery==3.34.0
+google-auth==2.29.0
+google-api-core==2.24.2
+google-cloud-core==2.4.3
+
+# Datenverarbeitung
+pandas==2.3.0
+numpy==1.26.3
+sqlparse==0.5.3
+
+# PDF-Erstellung
+weasyprint==65.1
+jinja2==3.1.6
+matplotlib==3.8.2
+
+# Hilfspakete
+httpx==0.28.1
+python-dotenv==1.1.0
+requests==2.32.4
+
